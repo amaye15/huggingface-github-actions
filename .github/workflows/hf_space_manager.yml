@@ -1,0 +1,43 @@
+name: Create Hugging Face Space
+
+on:
+  push:
+    branches:
+      - '**'  # Triggers on push to any branch
+
+jobs:
+  create-hf-space:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: |
+        pip install huggingface_hub
+
+    - name: Construct Space Name
+      id: vars
+      shell: bash
+      run: |
+        # Extract the repository name (without owner)
+        REPO_NAME=$(basename "$GITHUB_REPOSITORY")
+        # Extract the branch name
+        BRANCH_NAME=$(echo "${GITHUB_REF##*/}")
+        # Clean up branch name to be URL-friendly
+        BRANCH_NAME_CLEAN=$(echo "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g')
+        # Construct the space name
+        SPACE_NAME="${REPO_NAME}-${BRANCH_NAME_CLEAN}"
+        echo "space_name=${SPACE_NAME}" >> $GITHUB_OUTPUT
+
+    - name: Run hf_space_manager Script
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: |
+        python hf_space_manager.py --token ${{ secrets.HF_TOKEN }} --space-name "${{ steps.vars.outputs.space_name }}" --sdk gradio --private
