@@ -61,11 +61,11 @@ jobs:
         HF_REPO_URL="https://huggingface.co/spaces/${HF_USERNAME}/${SPACE_NAME}.git"
 
         # Add Hugging Face repository as a remote named 'huggingface'
-        git remote add huggingface "$HF_REPO_URL"
+        git remote add space "$HF_REPO_URL"
 
         # Set up authentication for Hugging Face
         git config --global credential.helper store
         echo "https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co" > ~/.git-credentials
 
         # Push code to Hugging Face Space's main branch
-        git push huggingface main --force
+        git push --force space main
