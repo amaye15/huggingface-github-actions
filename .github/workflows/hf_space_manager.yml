@@ -39,6 +39,7 @@ jobs:
     - name: Run hf_space_manager Script
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        HF_USERNAME: ${{ secrets.HF_USERNAME }}
       run: |
         python hf_space_manager.py --token ${{ secrets.HF_TOKEN }} --space-name "${{ steps.vars.outputs.space_name }}" --sdk gradio --private
         git remote add space https://huggingface.co/spaces/${{ secrets.HF_USERNAME }}/${{ steps.vars.outputs.space_name }}
