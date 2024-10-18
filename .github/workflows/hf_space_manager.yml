@@ -70,6 +70,8 @@ jobs:
         git config --global credential.helper store
         echo "https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co" > ~/.git-credentials
 
+        echo ${{ steps.vars.outputs.branch_name_clean }}
+
         # Push code to Hugging Face Space's main branch
         git push --force space ${{ steps.vars.outputs.branch_name_clean }}:main
 
