@@ -49,6 +49,7 @@ jobs:
         python create_readme.py --title "${{ steps.vars.outputs.space_name }}" --sdk docker --python_version 3.12 --app_file app.py --suggested_hardware basic --app_port 7860 --output_dir ./
         ls -a
         git add .
+        git commit -m "README.md Created"
 
     - name: Push to Hugging Face Space
       env:
