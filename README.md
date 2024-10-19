@@ -1,11 +1,17 @@
 ---
-title: Google Lens
-emoji: 📉
-colorFrom: red
-colorTo: red
+title: My Awesome Space
 sdk: gradio
-sdk_version: 5.0.0
+python_version: '3.10'
 app_file: app.py
+fullWidth: false
+models: []
+datasets: []
+tags: []
 pinned: false
-license: apache-2.0
+hf_oauth: false
+disable_embedding: false
 ---
+
+# My Awesome Space
+
+This is the README for the space: My Awesome Space.
