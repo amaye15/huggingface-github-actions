@@ -47,6 +47,7 @@ jobs:
       run: |
         python hf_space_manager.py --token ${{ secrets.HF_TOKEN }} --space-name "${{ steps.vars.outputs.space_name }}" --sdk docker --private
         python create_readme.py --title "${{ steps.vars.outputs.space_name }}" --sdk docker --python_version 3.12 --app_file app.py --suggested_hardware basic --app_port 7860
+        git add .
 
     - name: Push to Hugging Face Space
       env:
