@@ -86,6 +86,7 @@ def main():
         except Exception as e:
             print(f"Failed to create space '{full_repo_name}': {e}")
             sys.exit(1)
+
     except Exception as e:
         print(f"An error occurred while checking the space: {e}")
         sys.exit(1)
