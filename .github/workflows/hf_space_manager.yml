@@ -46,6 +46,9 @@ jobs:
         HF_USERNAME: ${{ secrets.HF_USERNAME }}
       run: |
         python hf_space_manager.py --token ${{ secrets.HF_TOKEN }} --space-name "${{ steps.vars.outputs.space_name }}" --sdk docker --private
+        python create_readme.py --title "${{ steps.vars.outputs.space_name }}" --sdk docker --python_version 3.12 --app_file app.py --suggested_hardware basic --app_port 7860 --output_dir ./
+        ls -a
+        git add .
 
     - name: Push to Hugging Face Space
       env:
@@ -59,9 +62,6 @@ jobs:
         # Configure Git
         git config --global user.email "${GIT_EMAIL}"
         git config --global user.name "${GIT_USERNAME}"
-
-        python create_readme.py --title "${{ steps.vars.outputs.space_name }}" --sdk docker --python_version 3.12 --app_file app.py --suggested_hardware basic --app_port 7860
-        git add .
 
         # Set up Hugging Face repository URL
         HF_REPO_URL="https://huggingface.co/spaces/${HF_USERNAME}/${SPACE_NAME}.git"
