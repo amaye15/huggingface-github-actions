@@ -46,10 +46,7 @@ jobs:
         HF_USERNAME: ${{ secrets.HF_USERNAME }}
       run: |
         python hf_space_manager.py --token ${{ secrets.HF_TOKEN }} --space-name "${{ steps.vars.outputs.space_name }}" --sdk docker --private
-        python create_readme.py --title "${{ steps.vars.outputs.space_name }}" --sdk docker --python_version 3.12 --app_file app.py --suggested_hardware basic --app_port 7860 --output_dir ./
-        ls -a
-        git add .
-        git commit -m "README.md Created"
+        python create_readme.py --title "${{ steps.vars.outputs.space_name }}" --sdk docker --python_version 3.12 --app_file app.py --suggested_hardware basic --app_port 7860
 
     - name: Push to Hugging Face Space
       env:
@@ -73,6 +70,9 @@ jobs:
         # Set up authentication for Hugging Face
         git config --global credential.helper store
         echo "https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co" > ~/.git-credentials
+
+        git add .
+        git commit -m "README.md Created & Pushed to Hugginface Space"
 
         # Push code to Hugging Face Space's main branch
         git push --force space ${BRANCH_NAME_CLEAN}:main
